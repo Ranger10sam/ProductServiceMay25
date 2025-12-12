@@ -1,6 +1,8 @@
 package com.example.ProductService.controllers;
 
 import com.example.ProductService.models.Product;
+import com.example.ProductService.services.FakeStoreProductService;
+import com.example.ProductService.services.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,15 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
+    ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
     @GetMapping("/{id}")
     public Product getSingleProduct(@PathVariable("id") Long productId){
-        return new Product();
+        return productService.getSingleProduct(productId);
     }
 
     @GetMapping("/")
